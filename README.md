@@ -15,7 +15,20 @@ This repository provides CI scripts to build wheel packages for the
 - Builds wheels with [cibuildwheel](https://github.com/pypa/cibuildwheel/).
 - Build backend uses [scikit-build-core](https://github.com/scikit-build/scikit-build-core).
 - Default BLAS backend is [OpenBLAS](https://github.com/OpenMathLib/OpenBLAS) on Linux/Windows and [the Accelerate framework](https://developer.apple.com/documentation/accelerate) on macOS.
-- Support various build options.
+- Support various build options for customization.
+
+### Features
+
+The PyPI distributed wheels include the following extentions.
+
+|Platform|Arch  |Extensions           |BLAS backend|
+|--------|------|---------------------|------------|
+|Linux   |x86_64|generic, avx2, avx512|OpenBLAS    |
+|Linux   |arm64 |generic, sve         |OpenBLAS    |
+|macOS   |x86_64|generic, avx2        |Accelerate framework|
+|macOS   |arm64 |generic              |Accelerate framework|
+|Windows |x86_64|generic, avx2        |OpenBLAS    |
+|Windows |arm64 |generic              |OpenBLAS    |
 
 > **Note**
 > GPU binary package is discontinued as of 1.7.3 release. Build a custom wheel to support GPU features.
@@ -30,9 +43,23 @@ pip install faiss-cpu
 
 Note that the package name is `faiss-cpu`.
 
+## Usage
+
+Check [the official documentation at the upstream](https://faiss.ai/) for general usage.
+
+### Index portability
+
+One caveat is that faiss indices built in a specific environment is not always compatible in the other environment. For example, indices built and saved in the x86_64 architecture is not always compatible in the arm64 environment. In addition, SIMD features can lead to incompatibility. Indices built in the AVX2 extension are not compatible in the generic extension. Faiss automatically detects the CPU instruction set and loads extensions. This tends to be an issue in the containerized environment where CPU features are not correctly detected due to driver issues.
+
+If you encounter a segfault or weird argument errors, set the following environment variable to force or disable the specific SIMD extension:
+
+```bash
+export FAISS_OPT_LEVEL="generic"
+```
+
 ## Building customized wheels
 
-The PyPI binary package does not support GPU by default. To support GPU methods or use faiss with a different build configuration, build a custom wheel. For building a wheel package, there are a few requirements.
+The PyPI wheels do not support GPU by default. To support GPU methods or use faiss with a different build configuration, build a custom wheel. For building a wheel package, there are a few requirements.
 
 - BLAS: There must be a BLAS implementation available on the Linux and Windows platforms.
 - OpenMP: macOS requires `libomp` (available via Homebrew).
