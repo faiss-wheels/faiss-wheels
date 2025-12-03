@@ -4,13 +4,13 @@ build-backend = "scikit_build_core.build"
 
 [project]
 name = "faiss-cpu"
-version = "1.13.0"
+version = "1.13.1"
 authors = [
     { name = "Kota Yamaguchi", email = "yamaguchi_kota@cyberagent.co.jp" },
 ]
 description = "A library for efficient similarity search and clustering of dense vectors."
 readme = "README.md"
-requires-python = ">=3.9,<3.15"
+requires-python = ">=3.10,<3.15"
 keywords = ["faiss", "similarity search", "clustering", "machine learning"]
 license = "MIT AND BSD-3-Clause"
 classifiers = [
@@ -20,7 +20,6 @@ classifiers = [
     "Operating System :: MacOS :: MacOS X",
     "Operating System :: Microsoft :: Windows",
     "Operating System :: POSIX",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
@@ -70,20 +69,20 @@ sdist.exclude = [
 [[tool.scikit-build.overrides]]
 if.platform-system = "^(darwin|linux)"  # NOTE: Windows ABI3 results in broken DLLs.
 if.abi-flags = "^$"  # NOTE: Free-threaded Python does not support stable ABI.
-wheel.py-api = "cp39"
+wheel.py-api = "cp310"
 
 [tool.cibuildwheel]
 archs = "native"
-# NOTE: We do not support cp39 and cp310 on Windows ARM64
+# NOTE: We do not support cp310 on Windows ARM64
 # NOTE: cp3*t-win issue: https://gitlab.kitware.com/cmake/cmake/-/issues/26926
 # NOTE: cp3*t does not support stable API and we skip them for now.
-skip = "cp39-win_arm64 cp310-win_arm64 cp3*t-*"
+skip = "cp39* cp310-win_arm64 cp3*t-*"
 test-requires = ["pytest", "scipy"]
 test-command = "pytest {project}/third-party/faiss/tests"
 
 [[tool.cibuildwheel.overrides]]
 # Skip scipy tests for platforms not supporting binary wheels.
-select = "cp39-musllinux_aarch64 *-win_arm64"
+select = "*-win_arm64"
 test-requires = ["pytest"]
 test-command = """
 pytest {project}/third-party/faiss/tests/ \
