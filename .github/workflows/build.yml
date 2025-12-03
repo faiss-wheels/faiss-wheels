@@ -44,7 +44,7 @@ jobs:
         if: runner.os == 'macOS'
       # NOTE: Linux needs a setup from before-all hook, because they are inside containers.
       - name: Build wheels
-        uses: pypa/cibuildwheel@v3.1.4
+        uses: pypa/cibuildwheel@v3.3.0
         env:
           CIBW_ENVIRONMENT: >
             FAISS_OPT_LEVELS="${{ matrix.opt_levels }}"
@@ -63,7 +63,7 @@ jobs:
       - name: Rename the project
         run: ./scripts/rename_project.sh faiss-mkl
       - name: Build wheels
-        uses: pypa/cibuildwheel@v3.1.4
+        uses: pypa/cibuildwheel@v3.3.0
         env:
           CIBW_BUILD: cp3*-manylinux_x86_64
           CIBW_ENVIRONMENT: >
@@ -89,7 +89,7 @@ jobs:
       - name: Rename the project
         run: ./scripts/rename_project.sh faiss-${{ matrix.gpu }}
       - name: Build wheels
-        uses: pypa/cibuildwheel@v3.1.4
+        uses: pypa/cibuildwheel@v3.3.0
         env:
           CIBW_BUILD: cp3*-manylinux_x86_64
           CIBW_ENVIRONMENT: >
