@@ -4,7 +4,7 @@ build-backend = "scikit_build_core.build"
 
 [project]
 name = "faiss-cpu"
-version = "1.13.1"
+version = "1.13.2"
 authors = [
     { name = "Kota Yamaguchi", email = "yamaguchi_kota@cyberagent.co.jp" },
 ]
@@ -47,10 +47,11 @@ addopts = [
     "--deselect=third-party/faiss/tests/test_contrib.py::TestClustering::test_ivf_train_2level",
     # Sporadic numerical errors found on windows 11 arm.
     "--deselect=third-party/faiss/tests/test_panorama.py::TestIndexIVFFlatPanorama::test_different_n_levels",
-    # Tests randomly segfault on musllinux, perhaps due to multiprocessing threading issues.
     # Below are tests that have been observed to segfault on musllinux.
-    # "--deselect=third-party/faiss/tests/test_binary_io.py::test_binary_from_float",
-    # "--deselect=third-party/faiss/tests/test_graph_based.py::test_io_no_storage"
+    "--deselect=third-party/faiss/tests/test_binary_io.py::test_binary_from_float",
+    "--deselect=third-party/faiss/tests/test_graph_based.py::test_io_no_storage",
+    # Crash observed on macOS Intel.
+    "--deselect=third-party/faiss/tests/test_flat_l2_panorama.py::TestIndexFlatL2Panorama::test_merge_from",
 ]
 
 [tool.scikit-build]
