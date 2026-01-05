@@ -7,6 +7,9 @@ on:
   release:
     types: [published]
 
+permissions:
+  contents: read
+
 jobs:
   build_wheels:
     name: Build wheels on ${{ matrix.os }}
@@ -108,6 +111,7 @@ jobs:
       name: pypi
       url: https://pypi.org/p/faiss-cpu
     permissions:
+      contents: read
       id-token: write
     if: github.event_name == 'release' && github.event.action == 'published'
     steps:
