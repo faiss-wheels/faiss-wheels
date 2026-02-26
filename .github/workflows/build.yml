@@ -30,7 +30,7 @@ jobs:
           - os: windows-11-arm
             opt_levels: generic
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           submodules: true
       # NOTE: You may skip this step for using the standard MSBuild setup, but necessary for ClangCL.
@@ -47,11 +47,11 @@ jobs:
         if: runner.os == 'macOS'
       # NOTE: Linux needs a setup from before-all hook, because they are inside containers.
       - name: Build wheels
-        uses: pypa/cibuildwheel@v3.3.0
+        uses: pypa/cibuildwheel@v3.3.1
         env:
           CIBW_ENVIRONMENT: >
             FAISS_OPT_LEVELS="${{ matrix.opt_levels }}"
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
           name: wheel-${{ matrix.os }}
           path: ./wheelhouse/*.whl
@@ -60,19 +60,19 @@ jobs:
     name: Build MKL wheels
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           submodules: true
       - name: Rename the project
         run: ./scripts/rename_project.sh faiss-mkl
       - name: Build wheels
-        uses: pypa/cibuildwheel@v3.3.0
+        uses: pypa/cibuildwheel@v3.3.1
         env:
           CIBW_BUILD: cp3*-manylinux_x86_64
           CIBW_ENVIRONMENT: >
             FAISS_ENABLE_MKL=ON
             FAISS_OPT_LEVELS=generic,avx2,avx512
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
           name: mkl-wheel-ubuntu-24.04
           path: ./wheelhouse/*.whl
@@ -86,19 +86,19 @@ jobs:
           - gpu: cuda
           - gpu: rocm
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           submodules: true
       - name: Rename the project
         run: ./scripts/rename_project.sh faiss-${{ matrix.gpu }}
       - name: Build wheels
-        uses: pypa/cibuildwheel@v3.3.0
+        uses: pypa/cibuildwheel@v3.3.1
         env:
           CIBW_BUILD: cp3*-manylinux_x86_64
           CIBW_ENVIRONMENT: >
             FAISS_GPU_SUPPORT=${{ matrix.gpu }}
             FAISS_OPT_LEVELS=avx2
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
           name: gpu-wheel-ubuntu-24.04-${{ matrix.gpu }}
           path: ./wheelhouse/*.whl
@@ -115,7 +115,7 @@ jobs:
       id-token: write
     if: github.event_name == 'release' && github.event.action == 'published'
     steps:
-      - uses: actions/download-artifact@v5
+      - uses: actions/download-artifact@v7
         with:
           pattern: wheel-*
           merge-multiple: true
