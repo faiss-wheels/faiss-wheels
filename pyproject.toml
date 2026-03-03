@@ -45,13 +45,13 @@ addopts = [
     "--deselect=third-party/faiss/tests/test_local_search_quantizer.py::TestComponents::test_update_codebooks_with_double",
     "--deselect=third-party/faiss/tests/test_contrib.py::TestPreassigned::test_float",
     "--deselect=third-party/faiss/tests/test_contrib.py::TestClustering::test_ivf_train_2level",
-    # Sporadic numerical errors found on windows 11 arm.
-    "--deselect=third-party/faiss/tests/test_panorama.py::TestIndexIVFFlatPanorama::test_different_n_levels",
     # Below are tests that have been observed to segfault on musllinux.
-    "--deselect=third-party/faiss/tests/test_binary_io.py::test_binary_from_float",
-    "--deselect=third-party/faiss/tests/test_graph_based.py::test_io_no_storage",
+    "--deselect=third-party/faiss/tests/test_binary_io.py::TestBinaryFromFloat::test_binary_from_float",
+    "--deselect=third-party/faiss/tests/test_graph_based.py::TestHNSW::test_io_no_storage",
     # Crash observed on macOS Intel.
-    "--deselect=third-party/faiss/tests/test_flat_l2_panorama.py::TestIndexFlatL2Panorama::test_merge_from",
+    "--deselect=third-party/faiss/tests/test_flat_panorama.py::TestIndexFlatPanorama::test_merge_from",
+    # Sporadic numerical errors found on windows 11 arm.
+    "--deselect=third-party/faiss/tests/test_flat_panorama.py::TestIndexFlatPanorama::test_different_n_levels",
 ]
 
 [tool.scikit-build]
