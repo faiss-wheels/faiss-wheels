@@ -1,10 +1,10 @@
 [build-system]
-requires = ["scikit-build-core>=0.10", "swig>=3.0.12,<4.4.0", "numpy>=2.0,<3.0"]
+requires = ["scikit-build-core>=0.10", "swig>=3.0.12,<4.5.0", "numpy>=2.0,<3.0"]
 build-backend = "scikit_build_core.build"
 
 [project]
 name = "faiss-cpu"
-version = "1.14.0"
+version = "1.14.1"
 authors = [
     { name = "Kota Yamaguchi", email = "yamaguchi_kota@cyberagent.co.jp" },
 ]
