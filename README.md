@@ -3,6 +3,16 @@
 [![Build](https://github.com/kyamagu/faiss-wheels/actions/workflows/build.yml/badge.svg)](https://github.com/kyamagu/faiss-wheels/actions/workflows/build.yml)
 [![PyPI](https://img.shields.io/pypi/v/faiss-cpu?label=faiss-cpu)](https://pypi.org/project/faiss-cpu/)
 
+> [!IMPORTANT]
+> **This repository is archived.**
+> Starting with faiss v1.14.2, the upstream [faiss](https://github.com/facebookresearch/faiss) repository officially supports PyPI wheel distribution. This community-maintained repository has ended its role. Please install faiss directly from PyPI:
+>
+> ```bash
+> pip install faiss-cpu
+> ```
+
+---
+
 Faiss Python wheel packages.
 
 - [faiss](https://github.com/facebookresearch/faiss)
