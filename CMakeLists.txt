@@ -8,7 +8,7 @@ if(NOT "${SKBUILD}" STREQUAL "2")
       "faiss-cpu"
       CACHE STRING "Project name")
   set(SKBUILD_PROJECT_VERSION
-      "1.13.2"
+      "1.14.1"
       CACHE STRING "Project version")
   set(SKBUILD_SABI_VERSION
       ""
